@@ -1,0 +1,55 @@
+<div class="container card mt-4 px-2 py-2">
+    <h3 class="text-center">Lista de tareas</h3>
+    <div class="card-body">
+        <h2 class="text-left ">
+            <a routerLink="/new">
+                <fa-icon [icon]="nuevaTarea" title="Nueva Tarea"></fa-icon>
+            </a>
+        </h2>
+
+        <table class="table table-striped ">
+            <thead>
+                <tr>
+                    <th scope="col " class=" text-center ">ID</th>
+                    <th scope="col " class=" text-center ">Descripción</th>
+                    <th scope="col " class=" text-center ">Adjunto</th>
+                    <th scope="col " class=" text-center ">Estado</th>
+                    <th scope="col " class=" text-center "></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let todo of todosList | async ">
+                    <td class=" text-center ">{{todo.id}}</td>
+                    <td class=" text-center ">{{todo.descripcion}}</td>
+                    <!-- Imagen/Foto/Documento adjunto a la descripcion -->
+                    <td class="text-center ">
+                        <div *ngIf="todo.adjunto; then thenImgBlock else elseImgBlock "></div>
+                        <ng-template #thenImgBlock>
+                            <span data-toggle="modal" data-target="#myModal" (click)="ver(todo.adjunto)" title="Ver adjunto">
+                                    <fa-icon [icon]="clip"></fa-icon>
+                                </span>
+                        </ng-template>
+                    </td>
+                    <!-- Estado de la tarea... si está pendiente  se puede pasar a resuelta -->
+                    <td class=" text-center ">
+                        {{todo.estado?'Resuelta':'Pendiente'}}
+                    </td>
+                    <td class=" text-center ">
+                        <div *ngIf="todo.estado; then thenBlock else elseBlock "></div>
+                        <ng-template #thenBlock>
+                            <h2>
+                                <fa-icon [icon]="check " class="text-success" title="Resuelta"></fa-icon>
+                            </h2>
+                        </ng-template>
+                        <ng-template #elseBlock><button class="btn btn-primary " (click)="updateTodo(todo.id) ">Pasar a Resuelta</button>
+                        </ng-template>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<app-modal [adjunto]="adj ">
+</app-modal>
