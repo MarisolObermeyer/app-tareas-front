@@ -10,7 +10,7 @@ Pasos para clonar y ejecutar
 3- Ejecutar el comando:
   git clone https://github.com/MarisolObermeyer/app-tareas-front.git
 
-4- Ingresar al directorio clonado y ejecutar:
+4- Ingresar al directorio clonado, buscar la ubicación del archivo package.json y ejecutar el comando:
    npm install
 
 5- Finalmente ejecutar:
